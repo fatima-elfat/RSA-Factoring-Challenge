@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+len() { L=$#; }
 if [ $# -ne 1 ]
 then
         echo 'Usage: rsa <file>'
@@ -6,7 +7,32 @@ then
 else
 	while read NBR
 	do
-		R=($(factor $NBR))
-		echo "$NBR=$(($NBR/${R[1]}))*${R[1]}"
+		R=$(factor $NBR)
+		S=($(factor $NBR))
+		a=${S[1]}
+		len $R
+		c=0
+		if [ $L -eq 3 ]
+		then
+			b=${S[2]}
+		else
+			b=1
+			for i in ${S[*]}
+			do
+				if [ $c -ne 0 ] && [ $c -ne 1 ]
+				then
+					b=$(echo $i*$b | bc)
+				fi
+				c=$((c+1))
+			done
+		fi
+		d=$(echo "$S" | tr ':' '=')
+		ch=$(echo "if($b > $a) 1 else 0" | bc)
+		if [ $ch -eq 1 ]
+		then
+			echo "$d$a*$b"
+		else
+			echo "$d$b*$a"
+		fi
 	done < $1
 fi
