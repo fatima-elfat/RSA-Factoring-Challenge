@@ -22,9 +22,9 @@ else
 		ch=$(echo "if($b > $a) 1 else 0" | bc)
 		if [ $ch -eq 1 ]
 		then
-			echo "$d$a*$b"
-		else
 			echo "$d$b*$a"
+		else
+			echo "$d$a*$b"
 		fi
 	done < $1
 fi
