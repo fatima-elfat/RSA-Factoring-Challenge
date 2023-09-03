@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+while read NBR
+do
+    R=($(factor $NBR))
+    S=($(factor ${R[1]}))
+    T=$((${R[1]}/${S[1]}))
+    if [[ $T == 1 ]]
+    then
+	    echo "$NBR=$(($NBR/${R[1]}))*${R[1]}"
+    fi
+done < $1

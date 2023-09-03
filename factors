@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+while read NBR
+do
+    R=($(factor $NBR))
+    echo "$NBR=$(($NBR/${R[1]}))*${R[1]}"
+done < $1
