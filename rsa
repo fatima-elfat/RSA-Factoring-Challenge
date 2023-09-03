@@ -16,15 +16,7 @@ else
 		then
 			b=${S[2]}
 		else
-			b=1
-			for i in ${S[*]}
-			do
-				if [ $c -ne 0 ] && [ $c -ne 1 ]
-				then
-					b=$(echo $i*$b | bc)
-				fi
-				c=$((c+1))
-			done
+			echo "$S" | tr ':' ''
 		fi
 		d=$(echo "$S" | tr ':' '=')
 		ch=$(echo "if($b > $a) 1 else 0" | bc)
