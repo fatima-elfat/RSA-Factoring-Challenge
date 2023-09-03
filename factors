@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-
-while read NBR
-do
-    R=($(factor $NBR))
-    echo "$NBR=$(($NBR/${R[1]}))*${R[1]}"
-done < $1
+if [ $# -ne 1 ]
+then
+        echo 'Usage: rsa <file>'
+        exit 1
+else
+	while read NBR
+	do
+		R=($(factor $NBR))
+		echo "$NBR=$(($NBR/${R[1]}))*${R[1]}"
+	done < $1
+fi
